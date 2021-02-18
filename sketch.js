@@ -40,6 +40,12 @@ var drawFunction;
 // offset from bottom of screen
 var gTextOffset = 20;
 
+//instructions array
+var strings = [];
+var midX
+var startY;
+var lineHeight = 24;
+
 // load all images into an array
 function preload() {
   images[0] = loadImage('assets/overwhelmed.png');
@@ -66,6 +72,11 @@ function setup() {
 // Very simple, sets the background color and calls your state machine function
 function draw() {
   background(192);
+
+  fill(0);
+  for( let i = 0 ; i < strings.length; i++ ) {
+      text( strings[i], midX, startY + (i * lineHeight) )
+  }
 
   // will call your state machine function
   drawFunction();
@@ -118,6 +129,15 @@ drawSplash = function() {
    image(images[5],width/2, height/2);
 }
 
+function drawInstructions(){
+  fill(0);
+  strings[0] = "INSTRUCTIONS";
+  strings[1] = "Use buttons 1-5 to navigate through the moods";
+  strings[2] = "To return to the home screen press 's'";
+  strings[3] = "To return to the instuctions screen press'i'";
+  strings[4] = "Press 1 to start";
+}
+
 //========= TEMPLATE: add or change interface functions, as you like =========
 
 // Change the drawFunction variable based on your interaction
@@ -140,11 +160,14 @@ function keyTyped() {
   else if(key === 's'){
     drawFunction = drawSplash;
   }
+  else if(key === 'i'){
+    drawFunction = drawInstructions;
+  }
 }
 
 function mousePressed() {
   // only change state if we are in splash screen
   if( drawFunction === drawSplash ) {
-    drawFunction = drawOne;
+    drawInstructions;
   }
 }
