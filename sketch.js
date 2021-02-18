@@ -47,6 +47,7 @@ function preload() {
   images[2] = loadImage('assets/reflective.png');
   images[3] = loadImage('assets/excited.png');
   images[4] = loadImage('assets/sad.png');
+  images[5] = loadImage('assets/splash.png');
 }
 
 // Center drawing, drawFunction will be one for default
@@ -59,7 +60,7 @@ function setup() {
   textSize(24);
 
   // set to one for startup
-  drawFunction = drawOne;
+  drawFunction = drawSplash;
 }
 
 // Very simple, sets the background color and calls your state machine function
@@ -76,7 +77,7 @@ function draw() {
 drawOne = function() {
    image(images[0],width/2, height/2);
 
-   fill(0,0,0);
+   fill(75,0,130);
    text("Overwhelmed", width/2, height - gTextOffset);
 }
 
@@ -92,7 +93,7 @@ drawTwo = function() {
 drawThree = function() {
    image(images[2],width/2, height/2);
 
-   fill(40,230,120);
+   fill(255,20,147);
    text("Reflective", width/2, height - gTextOffset);
 }
 
@@ -100,7 +101,7 @@ drawThree = function() {
 drawFour = function() {
    image(images[3],width/2, height/2);
 
-   fill(255,255,178);
+   fill(30,144,255);
    text("Excited", width/2, height - gTextOffset);
 }
 
@@ -108,10 +109,14 @@ drawFour = function() {
 drawFive = function() {
    image(images[4],width/2, height/2);
 
-   fill(230,50,50);
+   fill(0,100,0);
    text("Sad", width/2, height - gTextOffset);
 }
 
+//-- drawSplash() will draw the image at index 4 from the array
+drawSplash = function() {
+   image(images[5],width/2, height/2);
+}
 
 //========= TEMPLATE: add or change interface functions, as you like =========
 
@@ -131,5 +136,15 @@ function keyTyped() {
   }
   else if( key === '5' ) {
   	drawFunction = drawFive;
+  }
+  else if(key === 's'){
+    drawFunction = drawSplash;
+  }
+}
+
+function mousePressed() {
+  // only change state if we are in splash screen
+  if( drawFunction === drawSplash ) {
+    drawFunction = drawOne;
   }
 }
